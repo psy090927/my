@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>角色档案 · 无名</title>
+  <style>
+    :root {
+      --bg: #0f0f12;
+      --panel: #1a1a20;
+      --panel-2: #22222a;
+      --red: #e63946;
+      --text: #f1f1f1;
+      --muted: #a0a0aa;
+      --border: rgba(255,255,255,.10);
+      --radius: 14px;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      background:
+        radial-gradient(circle at top left, rgba(230,57,70,.18), transparent 35%),
+        radial-gradient(circle at bottom right, rgba(230,57,70,.10), transparent 40%),
+        var(--bg);
+      color: var(--text);
+      font-family: system-ui, -apple-system, "Segoe UI", "Microsoft YaHei", sans-serif;
+      line-height: 1.7;
+    }
+
+    .wrap {
+      width: min(960px, calc(100% - 32px));
+      margin: 0 auto;
+      padding: 48px 0 64px;
+    }
+
+    /* 顶部角色名 */
+    .hero {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 24px;
+      padding: 32px;
+      background: linear-gradient(135deg, var(--panel), var(--panel-2));
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      box-shadow: 0 20px 60px rgba(0,0,0,.35);
+    }
+
+    .avatar {
+      width: 112px;
+      height: 112px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 3px solid var(--red);
+      background: var(--panel-2);
+      flex-shrink: 0;
+    }
+
+    .hero h1 {
+      margin: 0 0 6px;
+      font-size: clamp(28px, 5vw, 44px);
+      line-height: 1.15;
+      letter-spacing: .02em;
+    }
+
+    .subtitle {
+      margin: 0;
+      color: var(--muted);
+      font-size: clamp(14px, 2vw, 17px);
+    }
+
+    /* 通用卡片 */
+    .card {
+      margin-top: 20px;
+      padding: 26px 28px;
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+    }
+
+    .card h2 {
+      margin: 0 0 14px;
+      padding-left: 12px;
+      border-left: 4px solid var(--red);
+      font-size: clamp(18px, 2.5vw, 22px);
+      line-height: 1.2;
+    }
+
+    .card p { margin: 0 0 10px; color: #d8d8de; }
+    .card p:last-child { margin-bottom: 0; }
+
+    /* 基本信息网格 */
+    .info-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 12px;
+    }
+
+    .info-item {
+      padding: 12px 14px;
+      background: var(--panel-2);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+    }
+
+    .info-item .label {
+      display: block;
+      color: var(--muted);
+      font-size: 12px;
+      letter-spacing: .08em;
+      margin-bottom: 2px;
+    }
+
+    .info-item .value {
+      font-weight: 600;
+      font-size: 15px;
+    }
+
+    /* 标签 */
+    .tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .tag {
+      padding: 4px 10px;
+      border: 1px solid rgba(230,57,70,.55);
+      border-radius: 999px;
+      color: #ff8a93;
+      background: rgba(230,57,70,.10);
+      font-size: 13px;
+    }
+
+    /* 能力条 */
+    .skill { margin-bottom: 14px; }
+    .skill:last-child { margin-bottom: 0; }
+
+    .skill-top {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 6px;
+      font-size: 14px;
+    }
+
+    .skill-top span:last-child { color: var(--muted); }
+
+    .bar {
+      height: 8px;
+      background: var(--panel-2);
+      border-radius: 999px;
+      overflow: hidden;
+    }
+
+    .bar i {
+      display: block;
+      height: 100%;
+      width: var(--w, 70%);
+      background: linear-gradient(90deg, var(--red), #ff7a84);
+      border-radius: inherit;
+    }
+
+    /* 时间线 */
+    .timeline {
+      list-style: none;
+      margin: 0;
+      padding: 0 0 0 20px;
+      border-left: 2px solid rgba(230,57,70,.45);
+    }
+
+    .timeline li {
+      position: relative;
+      padding: 0 0 18px 18px;
+      color: #d8d8de;
+    }
+
+    .timeline li:last-child { padding-bottom: 0; }
+
+    .timeline li::before {
+      content: "";
+      position: absolute;
+      left: -7px;
+      top: 7px;
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: var(--red);
+      box-shadow: 0 0 0 4px rgba(230,57,70,.15);
+    }
+
+    .timeline time {
+      display: block;
+      color: var(--muted);
+      font-size: 12px;
+      letter-spacing: .06em;
+      margin-bottom: 2px;
+    }
+
+    footer {
+      margin-top: 28px;
+      text-align: center;
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    @media (max-width: 640px) {
+      .wrap { padding-top: 24px; }
+      .hero { padding: 24px; }
+      .avatar { width: 84px; height: 84px; }
+      .card { padding: 22px 20px; }
+    }
+  </style>
+</head>
+<body>
+  <main class="wrap">
+
+    <!-- 顶部角色信息 -->
+    <header class="hero">
+      <!-- 头像可换成自己的图片地址，没有就保持这个占位 -->
+      < img class="avatar"
+           src="https://placehold.co/224x224/1a1a20/e63946?text=WUCI"
+           alt="角色头像">
+      <div>
+        <h1>无名</h1>
+        <p class="subtitle">代号 · WUCI ｜ 沉默的观测者</p >
+      </div>
+    </header>
+
+    <!-- 基本信息 -->
+    <section class="card">
+      <h2>基本信息</h2>
+      <div class="info-grid">
+        <div class="info-item"><span class="label">姓名</span><span class="value">无名</span></div>
+        <div class="info-item"><span class="label">年龄</span><span class="value">19</span></div>
+        <div class="info-item"><span class="label">身高</span><span class="value">172 cm</span></div>
+        <div class="info-item"><span class="label">身份</span><span class="value">流浪记录者</span></div>
+        <div class="info-item"><span class="label">阵营</span><span class="value">中立</span></div>
+        <div class="info-item"><span class="label">武器</span><span class="value">旧式相机</span></div>
+      </div>
+    </section>
+
+    <!-- 简介 -->
+    <section class="card">
+      <h2>角色简介</h2>
+      <p>这里写角色的背景故事。可以写两到三段：她从哪里来、为什么成为现在的样子、正在寻找什么。</p >
+      <p>第二段可以补充性格、说话方式、习惯动作，让角色更具体。</p >
+      <div class="tags" style="margin-top:14px">
+        <span class="tag">冷静</span>
+        <span class="tag">观察者</span>
+        <span class="tag">旧物收集</span>
+        <span class="tag">夜行</span>
+      </div>
+    </section>
+
+    <!-- 能力 -->
+    <section class="card">
+      <h2>能力值</h2>
+
+      <div class="skill">
+        <div class="skill-top"><span>观察</span><span>92%</span></div>
+        <div class="bar"><i style="--w:92%"></i></div>
+      </div>
+
+      <div class="skill">
+        <div class="skill-top"><span>潜行</span><span>78%</span></div>
+        <div class="bar"><i style="--w:78%"></i></div>
+      </div>
+
+      <div class="skill">
+        <div class="skill-top"><span>交涉</span><span>54%</span></div>
+        <div class="bar"><i style="--w:54%"></i></div>
+      </div>
+
+      <div class="skill">
+        <div class="skill-top"><span>体能</span><span>66%</span></div>
+        <div class="bar"><i style="--w:66%"></i></div>
+      </div>
+    </section>
+
+    <!-- 时间线 -->
+    <section class="card">
+      <h2>经历时间线</h2>
+      <ul class="timeline">
+        <li>
+          <time>事件一</time>
+          在这里写第一段经历。
+        </li>
+        <li>
+          <time>事件二</time>
+          在这里写第二段经历。
+        </li>
+        <li>
+          <time>事件三</time>
+          在这里写第三段经历。
+        </li>
+      </ul>
+    </section>
+
+    <footer>© 2026 无名角色档案 · 由 GitHub Pages 托管</footer>
+  </main>
+</body>
+</html>
